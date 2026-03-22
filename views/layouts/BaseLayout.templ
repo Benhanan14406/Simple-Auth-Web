@@ -1,0 +1,96 @@
+// Base layout component
+package layouts
+
+templ BaseLayout(data []string) {
+    <!DOCTYPE html>
+    <html lang="en" x-data="{ dark: false }" :class="dark ? 'dark' : ''">
+        <head>
+            <meta charset="UTF-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <title>App</title>
+            <link rel="stylesheet" href="/static/css/styles.css"/>
+            <script src="/static/js/alpine.min.js" defer></script>
+            <style>
+                :root {
+                    --bg: #f5f2ee;
+                    --text: #1a1a1a;
+                    --card-bg: #ffffff;
+                    --card-border: #1a1a1a22;
+                    --card-text: #000000;
+                }
+                html.dark {
+                    --bg: #0f0f0f;
+                    --text: #e8e4df;
+                    --card-bg: #1c1c1c;
+                    --card-border: #ffffff22;
+                    --card-text: #ffffff99;
+                }
+
+                * { transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+
+                body {
+                    font-family: 'DM Mono', monospace;
+                    background: var(--bg);
+                    color: var(--text);
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0;
+                }
+                .grid-container {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    grid-template-rows: repeat(3, 1fr);
+                    column-gap: 10px;
+                    row-gap: 0px;
+                    padding: 2rem;
+                }
+                .grid-item {
+                    width: 200px;
+                    height: 200px;
+                    border: 1.5px solid var(--card-border);
+                    border-radius: 6px;
+                    background: var(--card-bg);
+                    display: flex;
+                    text-align: center;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 0.7rem;
+                    letter-spacing: 0.1em;
+                    text-transform: uppercase;
+                    color: var(--card-text);
+                    padding: 5px;
+                }
+                .toggle-btn {
+                    margin-bottom: 2rem;
+                    padding: 0.6rem 1.4rem;
+                    border: 1.5px solid currentColor;
+                    background: transparent;
+                    font-family: inherit;
+                    font-size: 0.75rem;
+                    letter-spacing: 0.15em;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    color: inherit;
+                }
+                .toggle-btn:hover { opacity: 0.6; }
+            </style>
+        </head>
+        <body>
+            <button
+                class="toggle-btn"
+                @click="dark = !dark"
+                x-text="dark ? '☀ Light Mode' : '☾ Dark Mode'">
+            </button>
+            <div class="grid-container">
+                for _, datum := range data {
+                    <div class="grid-item">
+                        <span>{ datum }</span>
+                    </div>
+                }
+            </div>
+        </body>
+    </html>
+}

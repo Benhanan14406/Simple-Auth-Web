@@ -1,0 +1,6 @@
+pb_data/
+node_modules/
+build/
+*_templ.go
+.env
+.DS_Store
