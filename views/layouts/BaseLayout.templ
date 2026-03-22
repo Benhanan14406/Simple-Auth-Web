@@ -1,7 +1,7 @@
 // Base layout component
 package layouts
 
-templ BaseLayout(data []string) {
+templ BaseLayout(data []string, isAdmin bool, isLoggedIn bool) {
     <!DOCTYPE html>
     <html lang="en" x-data="{ dark: false }" :class="dark ? 'dark' : ''">
         <head>
@@ -79,11 +79,24 @@ templ BaseLayout(data []string) {
             </style>
         </head>
         <body>
-            <button
-                class="toggle-btn"
-                @click="dark = !dark"
-                x-text="dark ? '☀ Light Mode' : '☾ Dark Mode'">
-            </button>
+            if isLoggedIn {
+                <a href="/auth/logout">
+                    <button class="toggle-btn">Logout</button>
+                </a>
+            } else {
+                <a href="/auth/google/login">
+                    <button class="toggle-btn">Sign in with Google</button>
+                </a>
+            }
+
+            if isAdmin {
+                <button
+                    class="toggle-btn"
+                    @click="dark = !dark"
+                    x-text="dark ? '☀ Light Mode' : '☾ Dark Mode'">
+                </button>
+            }
+
             <div class="grid-container">
                 for _, datum := range data {
                     <div class="grid-item">
