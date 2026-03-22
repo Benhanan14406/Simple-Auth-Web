@@ -45,6 +45,14 @@ func main() {
 				"Angelo Benhanan Abinaya Fuun",
 				"Jovanus Irwan Susanto",
 				"Raymundo Rafaelito Maryos Von Woloblo",
+				"Ilmu Komputer 2024",
+				"Ilmu Komputer 2024",
+				"Ilmu Komputer 2024",
+				"Ilmu Komputer 2024",
+				"2406355893",
+				"2406495432",
+				"2406434140",
+				"240640462",
 			}
 
 			adminEmails := []string{
@@ -83,14 +91,12 @@ func main() {
 				return nil
 			}
 
-			// Exchange code for token
 			token, err := auth.GoogleOAuthConfig().Exchange(context.Background(), code)
 			if err != nil {
 				http.Error(c.Response, "Failed to exchange token: "+err.Error(), http.StatusInternalServerError)
 				return nil
 			}
 
-			// Get user info from Google
 			client := auth.GoogleOAuthConfig().Client(context.Background(), token)
 			resp, err := client.Get("https://www.googleapis.com/oauth2/v2/userinfo")
 			if err != nil {
@@ -103,7 +109,6 @@ func main() {
 			var googleUser GoogleUser
 			json.Unmarshal(body, &googleUser)
 
-			// Find or create user in PocketBase
 			record, err := app.FindAuthRecordByEmail("users", googleUser.Email)
 			if err != nil {
 				collection, err := app.FindCollectionByNameOrId("users")
@@ -123,7 +128,6 @@ func main() {
 				return nil
 			}
 
-			// Create auth token and store in cookie
 			authToken, err := record.NewAuthToken()
 			if err != nil {
 				http.Error(c.Response, "Failed to create auth token", http.StatusInternalServerError)
@@ -172,14 +176,14 @@ type GoogleUser struct {
 	Picture string `json:"picture"`
 }
 
-// Generate a random state string for OAuth
+// Generates random state string for OAuth
 func generateState() string {
 	b := make([]byte, 16)
 	rand.Read(b)
 	return base64.URLEncoding.EncodeToString(b)
 }
 
-// Get the logged-in user's email
+// Gets the logged-in user's email
 func getLoggedInEmail(c *core.RequestEvent, app *pocketbase.PocketBase) string {
 	cookie, err := c.Request.Cookie("auth_token")
 	if err != nil {
