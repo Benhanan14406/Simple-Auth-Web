@@ -18,6 +18,7 @@ templ BaseLayout(data []string, isAdmin bool, isLoggedIn bool) {
                     --card-border: #1a1a1a22;
                     --card-text: #000000;
                 }
+                
                 html.dark {
                     --bg: #0f0f0f;
                     --text: #e8e4df;
@@ -75,7 +76,18 @@ templ BaseLayout(data []string, isAdmin bool, isLoggedIn bool) {
                     cursor: pointer;
                     color: inherit;
                 }
-                .toggle-btn:hover { opacity: 0.6; }
+
+                .toggle-btn:hover { 
+                    opacity: 0.6; 
+                }
+
+                a {
+                    color: #2563eb;
+                }
+
+                html.dark a {
+                    color: #60a5fa;
+                }
             </style>
         </head>
         <body>
