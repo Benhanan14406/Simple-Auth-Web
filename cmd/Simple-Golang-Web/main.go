@@ -78,7 +78,7 @@ func main() {
 
 		// Redirect user to Google
 		e.Router.GET("/auth/google/login", func(c *core.RequestEvent) error {
-			url := auth.GoogleOAuthConfig().AuthCodeURL("", oauth2.AccessTypeOffline)
+			url := auth.GoogleOAuthConfig().AuthCodeURL("", oauth2.AccessTypeOffline, oauth2.SetAuthURLParam("prompt", "select_account"))
 			http.Redirect(c.Response, c.Request, url, http.StatusTemporaryRedirect)
 			return nil
 		})
