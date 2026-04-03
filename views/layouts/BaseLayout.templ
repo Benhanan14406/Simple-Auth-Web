@@ -82,12 +82,40 @@ templ BaseLayout(data []string, isAdmin bool, isLoggedIn bool) {
                 }
 
                 a {
+                    padding-top: 50px;
                     color: #2563eb;
                 }
 
                 html.dark a {
                     color: #60a5fa;
                 }
+
+                .image-grid {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    column-gap: 10px;
+                    padding: 2rem;
+                    padding-bottom: 1rem;
+                }
+                
+                .image-item {
+                    width: 200px;
+                    height: 200px;
+                    border: 1.5px solid var(--card-border);
+                    border-radius: 6px;
+                    background: var(--card-bg);
+                    overflow: hidden;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                
+                .image-item img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
             </style>
         </head>
         <body>
@@ -108,6 +136,21 @@ templ BaseLayout(data []string, isAdmin bool, isLoggedIn bool) {
                     x-text="dark ? '☀ Light Mode' : '☾ Dark Mode'">
                 </button>
             }
+
+            <div class="image-grid">
+                <div class="image-item">
+                    <img src="/static/img/andy.JPG" alt="Anderson">
+                </div>
+                <div class="image-item">
+                    <img src="/static/img/fuun.JPG" alt="Fuun">
+                </div>
+                <div class="image-item">
+                    <img src="/static/img/jovan.JPG" alt="Jovanus">
+                </div>
+                <div class="image-item">
+                    <img src="/static/img/ray.JPG" alt="Raymundo">
+                </div>
+            </div>
 
             <div class="grid-container">
                 for _, datum := range data {
